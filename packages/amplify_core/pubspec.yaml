@@ -6,7 +6,7 @@ repository: https://github.com/aws-amplify/amplify-flutter/tree/main/packages/am
 issue_tracker: https://github.com/aws-amplify/amplify-flutter/issues
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.0.0-0 <4.0.0"
 
 dependencies:
   async: ^2.10.0
@@ -23,10 +23,10 @@ dependencies:
 
 dev_dependencies:
   amplify_lints: ">=2.0.3 <2.1.0"
-  build_runner: ^2.0.0
+  build_runner: ^2.4.0
   build_test: ^2.1.5
   build_version: ^2.1.1
-  build_web_compilers: ^3.2.4
+  build_web_compilers: ^4.0.0
   code_excerpt_updater:
     git:
       url: https://github.com/dart-lang/site-shared
@@ -35,4 +35,4 @@ dev_dependencies:
       path: packages/code_excerpt_updater
   json_serializable: 6.6.1
   path: any
-  test: ^1.17.0
+  test: ^1.22.1
