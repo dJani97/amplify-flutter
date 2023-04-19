@@ -16,7 +16,7 @@ dependencies:
   amplify_storage_s3: ">=1.0.0-next.8 <1.0.0-next.9"
   flutter:
     sdk: flutter
-  go_router: ^5.0.5
+  go_router: ^6.5.7
 
 # Needed to support both Flutter 3.3 + 3.7 in CI.
 # TODO(dnys1): Remove when Flutter 3.3 is no longer supported
