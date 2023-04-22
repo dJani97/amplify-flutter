@@ -46,7 +46,8 @@ Future<void> run(List<String> args) async {
     ..addCommand(ExecCommand())
     ..addCommand(CreateCommand())
     ..addCommand(SaveRepoStateCommand())
-    ..addCommand(RunCommand());
+    ..addCommand(RunCommand())
+    ..addCommand(ServeCommand());
 
   try {
     try {
