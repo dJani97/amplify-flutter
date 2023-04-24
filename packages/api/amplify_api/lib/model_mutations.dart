@@ -66,8 +66,11 @@ class ModelMutations {
   /// ```
   ///
   /// An optional `where` parameter can be supplied as a condition for the update to be evaluated on the server.
-  static GraphQLRequest<T> update<T extends Model>(T model,
-      {QueryPredicate? where}) {
-    return ModelMutationsFactory.instance.update<T>(model, where: where);
+  static GraphQLRequest<T> update<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+    List<String>? requestFields,
+  }) {
+    return ModelMutationsFactory.instance.update<T>(model, where: where, requestFields: requestFields);
   }
 }

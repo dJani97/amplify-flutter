@@ -17,6 +17,7 @@
 
 import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 
 import 'utils.dart';
 
@@ -48,7 +49,7 @@ class GraphQLRequestFactory {
 
   String _getSelectionSetFromModelSchema(
       ModelSchema schema, GraphQLRequestOperation operation,
-      {bool ignoreParents = false}) {
+      {bool ignoreParents = false, List<String>? requestFields,}) {
     // Schema has been validated & schema.fields is non-nullable.
     // Get a list of field names to include in the request body.
     List<String> _fields = schema.fields!.entries
@@ -79,6 +80,11 @@ class GraphQLRequestFactory {
                 true); // always format like a get, stop traversing parents
         _fields.add('${belongsTo.name} { $parentSelectionSet }');
       }
+    }
+
+    // remove any field from `_fields` that does not start with a requested field from `requestFields`:
+    if (requestFields != null) {
+      _fields =  _fields.where((field) => requestFields!.any((requestField) => field.split(' ').firstOrNull == requestField)).toList();
     }
 
     String fields = _fields.join(' '); // e.g. "id name createdAt"
@@ -142,6 +148,7 @@ class GraphQLRequestFactory {
   GraphQLRequest<T> buildRequest<T extends Model>(
       {required ModelType modelType,
       Model? model,
+      List<String>? requestFields,
       required GraphQLRequestType requestType,
       required GraphQLRequestOperation requestOperation,
       required Map<String, dynamic> variables,
@@ -160,7 +167,7 @@ class GraphQLRequestFactory {
     DocumentInputs documentInputs =
         _buildDocumentInputs(schema, requestOperation);
     // e.g. "id name createdAt" - fields to retrieve
-    String fields = _getSelectionSetFromModelSchema(schema, requestOperation);
+    String fields = _getSelectionSetFromModelSchema(schema, requestOperation, requestFields: requestFields);
     // e.g. "getBlog"
     String requestName = '$requestOperationVal$name';
     // e.g. query getBlog($id: ID!, $content: String) { getBlog(id: $id, content: $content) { id name createdAt } }
