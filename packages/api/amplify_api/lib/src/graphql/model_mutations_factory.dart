@@ -53,10 +53,14 @@ class ModelMutationsFactory extends ModelMutationsInterface {
   }
 
   @override
-  GraphQLRequest<T> update<T extends Model>(T model, {QueryPredicate? where}) {
+  GraphQLRequest<T> update<T extends Model>(
+    T model, {
+    QueryPredicate? where,
+    Map<String, dynamic>? overrideModel,
+  }) {
     final condition = GraphQLRequestFactory.instance
         .queryPredicateToGraphQLFilter(where, model.getInstanceType());
-    final input =
+    final input = overrideModel ??
         GraphQLRequestFactory.instance.buildInputVariableForMutations(model);
 
     final variables = GraphQLRequestFactory.instance
